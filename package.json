@@ -1,7 +1,7 @@
 {
   "name": "compgeom",
   "version": "0.0.1",
-  "description": "Interactive Geometry Tool",
+  "description": "Computational Geometry Playground",
   "dependencies": {
     "@flatten-js/core": "^1.3.5",
     "coffeescript": "^2.5.1",
