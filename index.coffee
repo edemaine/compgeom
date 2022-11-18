@@ -48,8 +48,21 @@ updateSoon = ->
   clearTimeout updateTimeout
   updateTimeout = setTimeout (=> update.call @), refresh
 
+getSVG = ->
+  '<?xml version="1.0" encoding="utf-8"?>\n' +
+  document.getElementById('display').outerHTML
+  .replace /<svg/, '<svg xmlns="http://www.w3.org/2000/svg"'
+
 window.addEventListener 'DOMContentLoaded', ->
   furls = new Furls()
   .addInputs()
   .on 'stateChange', updateSoon
   .syncState()
+
+  document.getElementById('downloadSVG').addEventListener 'click', ->
+    download = document.getElementById 'download'
+    download.href =
+      url = URL.createObjectURL new Blob [getSVG()], type: 'image/svg+xml'
+    download.click()
+    download.href = ''
+    URL.revokeObjectURL url
