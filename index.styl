@@ -8,16 +8,25 @@ body
   grid-template-rows: .7fr auto .3fr
 #display
   grid-row: 1
-#code
-  grid-row: 3
-  font: monospace
-  width: 100%
-  height: 100%
-  background: #000
-  color: white
 #options
   margin: 0.25rem
   text-align: right
 #display
   width: 100%
   height: 100%
+#bottom
+  grid-row: 3
+  display: grid
+  grid-template-rows: min(max-content, 1fr)
+  grid-gap: 0.25rem
+#code
+  grid-row: 1
+  font-family: monospace
+  width: 100%
+  background: #000
+  color: white
+#error
+  grid-row: 2
+  background: hsl(0, 100%, 10%)
+  color: hsl(0, 100%, 90%)
+  font-family: monospace

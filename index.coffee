@@ -26,20 +26,25 @@ globals = {
 for math in Object.getOwnPropertyNames Math
   globals[math] = Math[math]
 
+error = (e) ->
+  console.error e
+  document.getElementById('error').innerText = e
+
 update = ->
+  document.getElementById('error').innerText = ''
   svgContent = []
   viewBox = new flatten.Box
   {code} = @getState()
   try
     code = CoffeeScript.compile code, bare: true
   catch e
-    console.error e
+    return error e
   delete globals.default  # causes syntax error
   code = new Function ...Object.keys(globals), code
   try
     code ...Object.values globals
   catch e
-    console.error e
+    error e
   svg = document.getElementById 'display'
   if viewBox.xmin? and viewBox.ymin?
     svg.setAttribute 'viewBox',
