@@ -1,10 +1,11 @@
-margin = 5
+margin = 10
 refresh = 1000
 
 svgContent = viewBox = null
 
 flatten = window['@flatten-js/core']
-globals = {...flatten,
+globals = {
+  ...flatten
   draw: (obj, attrs) ->
     if obj instanceof flatten.Line or obj instanceof flatten.Ray
       svgContent.push obj.svg viewBox, attrs
@@ -22,6 +23,8 @@ globals = {...flatten,
       viewBox = viewBox.merge box
     obj
 }
+for math in Object.getOwnPropertyNames Math
+  globals[math] = Math[math]
 
 update = ->
   svgContent = []
