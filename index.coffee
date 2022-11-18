@@ -1,4 +1,5 @@
 margin = 5
+refresh = 1000
 
 svgContent = viewBox = null
 
@@ -25,7 +26,7 @@ globals = {...flatten,
 update = ->
   svgContent = []
   viewBox = new flatten.Box
-  code = document.getElementById('codeInput').value
+  {code} = @getState()
   try
     code = CoffeeScript.compile code, bare: true
   catch e
@@ -38,11 +39,17 @@ update = ->
     console.error e
   svg = document.getElementById 'display'
   svg.innerHTML = svgContent.join ''
-  svg.setAttribute 'viewBox',
-    "#{viewBox.xmin} #{viewBox.ymin} #{viewBox.width} #{viewBox.height}"
+  if viewBox.xmin? and viewBox.ymin?
+    svg.setAttribute 'viewBox',
+      "#{viewBox.xmin} #{viewBox.ymin} #{viewBox.width} #{viewBox.height}"
+
+updateTimeout = null
+updateSoon = ->
+  clearTimeout updateTimeout
+  updateTimeout = setTimeout (=> update.call @), refresh
 
 window.addEventListener 'DOMContentLoaded', ->
-  updateTimeout = null
-  document.getElementById('codeInput').addEventListener 'input', ->
-    clearTimeout updateTimeout
-    updateTimeout = setTimeout update, 1000
+  furls = new Furls()
+  .addInputs()
+  .on 'stateChange', updateSoon
+  .syncState()
