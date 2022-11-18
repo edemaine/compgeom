@@ -41,10 +41,11 @@ update = ->
   catch e
     console.error e
   svg = document.getElementById 'display'
-  svg.innerHTML = svgContent.join ''
   if viewBox.xmin? and viewBox.ymin?
     svg.setAttribute 'viewBox',
       "#{viewBox.xmin} #{viewBox.ymin} #{viewBox.width} #{viewBox.height}"
+    svgContent[0...0] = ["""<rect x="#{viewBox.xmin}" y="#{viewBox.ymin}" width="#{viewBox.width}" height="#{viewBox.height}" fill="black"/>"""]
+  svg.innerHTML = svgContent.join ''
 
 updateTimeout = null
 updateSoon = ->
