@@ -6,11 +6,18 @@ body
   overflow: hidden
   display: grid
   grid-template-rows: .7fr auto .3fr
+a:link, a:visited
+  color: yellow
 #display
   grid-row: 1
 #options
   margin: 0.25rem
-  text-align: right
+  justify-content: center
+  align-items: center
+  display: flex
+  gap: 0.5em
+  > a
+    display: inline-block
 #display
   width: 100%
   height: 100%
