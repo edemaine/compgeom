@@ -4,6 +4,11 @@ html
     title Computational Geometry Playground
     style
       include:stylus index.styl
+    style
+      include node_modules/codemirror/lib/codemirror.css
+      include node_modules/codemirror/theme/abcdef.css
+    script(src="node_modules/codemirror/lib/codemirror.js")
+    script(src="node_modules/codemirror/mode/coffeescript/coffeescript.js")
     script(src="node_modules/coffeescript/lib/coffeescript-browser-compiler-legacy/coffeescript.js")
     script(src="node_modules/@flatten-js/core/dist/main.umd.js")
     script(src="node_modules/furls/furls.js")

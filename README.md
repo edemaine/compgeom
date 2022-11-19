@@ -11,7 +11,7 @@ in CoffeeScript, with access to the following globals:
 * [Math](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math): `sin`, `cos`, `PI`, etc. (no need for `Math.` prefix).
 
 The window is divided into an SVG canvas on the top,
-and a code entry box at the bottom.
+and a [CodeMirror](https://codemirror.net/5) code entry box at the bottom.
 If the code produces an error, it gets displayed at the very bottom.
 
 As you edit the code, it automatically executes after a second of idle time.

@@ -52,11 +52,6 @@ update = ->
     svgContent[0...0] = ["""<rect x="#{viewBox.xmin}" y="#{viewBox.ymin}" width="#{viewBox.width}" height="#{viewBox.height}" fill="black"/>"""]
   svg.innerHTML = svgContent.join ''
 
-updateTimeout = null
-updateSoon = ->
-  clearTimeout updateTimeout
-  updateTimeout = setTimeout (=> update.call @), refresh
-
 getSVG = ->
   '<?xml version="1.0" encoding="utf-8"?>\n' +
   document.getElementById('display').outerHTML
@@ -65,8 +60,20 @@ getSVG = ->
 window.addEventListener 'DOMContentLoaded', ->
   furls = new Furls()
   .addInputs()
-  .on 'stateChange', updateSoon
+  .on 'stateChange', update
   .syncState()
+
+  cm = CodeMirror.fromTextArea document.getElementById('code'),
+    mode: 'coffeescript'
+    lineNumbers: true
+    theme: 'abcdef'
+  saveTimeout = null
+  cm.on 'change', ->
+    clearTimeout saveTimeout
+    saveTimeout = setTimeout ->
+      cm.save()
+      furls.maybeChange 'code'
+    , refresh
 
   document.getElementById('downloadSVG').addEventListener 'click', ->
     download = document.getElementById 'download'

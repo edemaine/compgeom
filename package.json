@@ -3,9 +3,10 @@
   "version": "0.0.1",
   "description": "Computational Geometry Playground",
   "dependencies": {
-    "@flatten-js/core": "^1.3.5",
-    "coffeescript": "^2.5.1",
-    "furls": "^0.9.0"
+    "@flatten-js/core": "1.3.5",
+    "codemirror": "5.65.9",
+    "coffeescript": "2.5.1",
+    "furls": "0.9.0"
   },
   "devDependencies": {
     "gulp": "^4.0.2",
