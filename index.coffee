@@ -116,6 +116,9 @@ window.addEventListener 'DOMContentLoaded', ->
 
   svg = document.getElementById 'display'
   pointers = {}
+  endDrag = (e) ->
+    pointers[e.pointerId]?.rect.remove()
+    delete pointers[e.pointerId]
   svg.addEventListener 'pointerdown', (e) ->
     rect = document.createElementNS SVGNS, 'rect'
     rect.setAttribute 'class', 'select'
@@ -130,10 +133,11 @@ window.addEventListener 'DOMContentLoaded', ->
       rect.setAttribute key, value
   svg.addEventListener 'pointerup', (e) ->
     return unless pointers[e.pointerId]?
-    {rect, start} = pointers[e.pointerId]
-    rect.remove()
-    delete pointers[e.pointerId]
+    {start} = pointers[e.pointerId]
+    endDrag e
     here = svgPoint svg, e.clientX, e.clientY
     box = rectFromPoints start, here
     return unless box.width > eps and box.height > eps
     furls.set 'viewBox', "#{box.x} #{box.y} #{box.width} #{box.height}"
+  svg.addEventListener 'pointerleave', (e) ->
+    endDrag e
