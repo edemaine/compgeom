@@ -20,6 +20,8 @@ html
       span [<a href="https://github.com/edemaine/compgeom" target="_blank">GitHub</a>]
       button#downloadSVG Download SVG
       a#download(download="compgeom", style="display: none")
+      button#reset(title="Drag a rectangle to zoom in, and click this button to reset") Reset View
+        input#viewBox(type="hidden")
     #bottom
       textarea#code.
         A = point 0, 0
